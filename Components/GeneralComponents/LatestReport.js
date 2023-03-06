@@ -8,7 +8,7 @@ function LatestReport({ id, category, picture, topic, user, date, onPress}) {
         <Pressable onPress={onPress} style={styles.LatestReportContainer}>
             <Image
                 style={styles.ImageStyle}
-                source={require('../../assets/pexels-beth-easton-2433985.jpg')}
+                source={{ uri : picture}}
             />
             <View style={styles.LatestReportContent}>
                 <Text style={styles.LatestReportContentTag}>{category}</Text>
@@ -26,12 +26,14 @@ export default LatestReport;
 
 const styles = StyleSheet.create({
     LatestReportContainer : {
+        // flex : 1,
         padding : sizeConstants.paddingRegular,
         marginBottom : spaceConstants.LargeSpaceVertical,
+        borderRadius : 10,
         flexDirection : 'row',
         justifyContent : 'space-between',
         alignItems: 'stretch',
-        backgroundColor : 'red'
+        backgroundColor : '#184a6e'
     },
     ImageStyle : {
         width : 140,
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
         flex : 1,
         flexDirection : 'column',
         justifyContent : 'space-between',
-        backgroundColor : 'green',
+        // backgroundColor : '#8ec3e3',
         marginHorizontal : spaceConstants.mediumSpacHorizontal
     },
     LatestReportContentTag : {

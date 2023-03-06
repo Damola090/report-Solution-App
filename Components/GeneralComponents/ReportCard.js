@@ -10,25 +10,25 @@ console.log(height)
 
 import { sizeConstants, fontConstants, spaceConstants, colorConstants } from '../../Constants/StyleConstants'
 
-function ReportCard() {
+function ReportCard({ url, topic, category, user, style , createdAt }) {
 
     return (
         <ImageBackground
             imageStyle={styles.image}
-            style={styles.imageBackground}
-            source={require('../../assets/pexels-beth-easton-2433985.jpg')}
+            style={[styles.imageBackground, style]}
+            source={{ uri : url}}
         >
             <View style={styles.Content}>
                 <View style={styles.Tag}>
-                    <Text style={styles.TagText}>Fighting</Text>
+                    <Text style={styles.TagText}>{category}</Text>
                 </View>
                 <View style={styles.report}>
                     <View style={styles.smallReport}>
-                        <Text style={styles.smallReportName}>Tayo Oyekale</Text>
+                        <Text style={styles.smallReportName}>{user}</Text>
                         <Text style={styles.smallReportTime}>6 Hours Ago</Text>
                     </View>
                     <View style={styles.mainReport}>
-                        <Text style={styles.mainReportText}>Alexander Wears Modified Helment In A road Race</Text>
+                        <Text style={styles.mainReportText}>{topic}</Text>
                     </View>
                 </View>
             </View>
@@ -72,13 +72,18 @@ const styles = StyleSheet.create({
         flex : 0.55,
         // backgroundColor : 'purple',
         flexDirection : 'column',
-        justifyContent : 'space-between'
+        justifyContent : 'center'
 
     },
     smallReport : {
+        padding : 4,
+        borderRadius : 6,
+        marginVertical : 5,
         flexDirection : 'row',
         justifyContent : 'flex-start',
-        alignItems : 'center'
+        alignItems : 'center',
+        backgroundColor : '#8ec3e3',
+        backgroundColor : 'green'
     },
     smallReportName : {
         fontSize: fontConstants.headingSmall,
@@ -92,6 +97,10 @@ const styles = StyleSheet.create({
 
     },
     mainReport : {
+        padding : 4,
+        borderRadius : 6,
+        marginVertical : 5,
+        backgroundColor: '#086999'
 
     },
     mainReportText : {

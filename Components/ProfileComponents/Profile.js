@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 
 import { fontConstants, colorConstants, sizeConstants, spaceConstants } from '../../Constants/StyleConstants'
@@ -8,7 +9,12 @@ import ScrollContainer from '../../Containers/ScrollContainer';
 
 var { height } = Dimensions.get('screen')
 
-function Profile() {
+import { AuthContext } from '../../Store/Context';
+
+function Profile({ myReports }) {
+
+    const { Auth, LogOutExistingUser } = useContext(AuthContext)
+
     return (
         <View style={{ flex: 1 }}>
             <ScrollContainer
@@ -21,26 +27,37 @@ function Profile() {
                         <Text style={styles.ProfileImageText}>S</Text>
                     </View>
                     <View style={styles.profileDetailsOwner}>
-                        <Text style={styles.profileDetailsName}>Tayo Oyekale</Text>
+                        <Text style={styles.profileDetailsName}>{Auth.user ? Auth.user.name : null}</Text>
                         <Text style={styles.profileDetailsLocation}>Oshodi</Text>
                     </View>
                 </View>
                 <View style={styles.reportDetails}>
                     <View style={styles.postNumberContainer}>
-                        <Text style={styles.postNumberValue}>0</Text>
+                        <Text style={styles.postNumberValue}>{myReports ? myReports.reportByUser.length : null}</Text>
                         <Text style={styles.postNumberkey}>Number Of Posts</Text>
                     </View>
                     <View style={styles.postContentContainer}>
-                        <View style={styles.noPostContainer}>
-                            <Text style={styles.noPostContainerText}>You Have No Post Yet Sir !!!</Text>
-                            <UserButton>Create A New Post</UserButton>
-                        </View>
-                        {/* <View style={styles.PostFoundContainer}>
-                            <ReportCard />
-                            <ReportCard />
-                            <ReportCard />
-                            <ReportCard />
-                        </View> */}
+                        {myReports.reportByUser.length === 0 ? (
+                            <View style={styles.noPostContainer}>
+                                <Text style={styles.noPostContainerText}>You Have No Post Yet Sir !!!</Text>
+                                <UserButton>Create A New Post</UserButton>
+                            </View>
+
+                        ) : (
+                            <View style={styles.PostFoundContainer}>
+                                {myReports.reportByUser.map((report) => (
+                                    <ReportCard
+                                        key={report._id}
+                                        style={styles.reportCard}
+                                        url={report.image.url}
+                                        topic={report.reportContent.topic}
+                                        category={report.category}
+                                        user={report.user.name}
+                                    />
+                                ))}
+                            </View>
+                        )}
+                        <UserButton onPress={LogOutExistingUser}>Log Out User</UserButton>
                     </View>
                 </View>
             </ScrollContainer>
@@ -116,7 +133,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical : 40
+        marginVertical: 40
 
     },
     noPostContainer: {
@@ -129,7 +146,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     PostFoundContainer: {
-        flex: 1
+        flex: 1,
+    },
+    reportCard : {
+        marginVertical : 10
     }
 })
 

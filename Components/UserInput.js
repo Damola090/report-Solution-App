@@ -1,6 +1,8 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 
-function UserInput({ label, invalid, textInputConfig, style }) {
+
+import { colorConstants } from '../Constants/StyleConstants'
+function UserInput({ label, invalid, textInputConfig, style, innerStyle }) {
 
     const inputStyles = [styles.input];
 
@@ -12,7 +14,7 @@ function UserInput({ label, invalid, textInputConfig, style }) {
     return (
         <View style={[styles.InputContainer, style]}>
             <Text style={[styles.label, invalid && styles.invalidLabel]}>{label}</Text>
-            <TextInput style={inputStyles} {...textInputConfig} />
+            <TextInput style={[inputStyles, innerStyle]} {...textInputConfig} />
         </View>
     )
 }
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
 
     },
     input: {
-        backgroundColor: 'blue',
+        backgroundColor: colorConstants.background,
         padding: 6,
         borderRadius: 6,
         borderWidth: 1,

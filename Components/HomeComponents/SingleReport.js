@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons'
 
 var { height } = Dimensions.get('screen')
 
-function SingleReport() {
+function SingleReport({ singleReportFetched }) {
 
     return (
         <View style={styles.singleReportContainer}>
@@ -20,7 +20,7 @@ function SingleReport() {
                 <ImageBackground
                     imageStyle={styles.imageBackground}
                     style={styles.imageSection}
-                    source={require('../../assets/pexels-beth-easton-2433985.jpg')}
+                    source={{ uri : singleReportFetched.image.url}}
                 >
                     <View style={styles.innerImageBackgroundBox}>
                         <View style={styles.IconsBox}>
@@ -30,15 +30,15 @@ function SingleReport() {
                         <View style={styles.Heading}>
                             <View style={styles.Content}>
                                 <View style={styles.Tag}>
-                                    <Text style={styles.TagText}>Fighting</Text>
+                                    <Text style={styles.TagText}>{singleReportFetched.category}</Text>
                                 </View>
                                 <View style={styles.report}>
                                     <View style={styles.smallReport}>
-                                        <Text style={styles.smallReportName}>Tayo Oyekale</Text>
+                                        <Text style={styles.smallReportName}>{singleReportFetched.user.name}</Text>
                                         <Text style={styles.smallReportTime}>6 Hours Ago</Text>
                                     </View>
                                     <View style={styles.mainReport}>
-                                        <Text style={styles.mainReportText}>Alexander Wears Modified Helment In A road Race</Text>
+                                        <Text style={styles.mainReportText}>{singleReportFetched.reportContent.topic}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -51,15 +51,11 @@ function SingleReport() {
                             style={styles.profilePicture}
                             source={require('../../assets/pexels-beth-easton-2433985.jpg')}
                         />
-                        <Text style={styles.profileText}>Reported by Tayo Oyekale</Text>
+                        <Text style={styles.profileText}>Reported by : {singleReportFetched.user.name}</Text>
                     </View>
                     <View style={styles.reportContentBody}>
                         <Text>
-                            As the Election Moves forward, the unrest in oshodi market has been growing exponentially, we need the government to come to our aid immediately, 
-                            As the Election Moves forward, the unrest in oshodi market has been growing exponentially, we need the government to come to our aid immediately,
-                            As the Election Moves forward, the unrest in oshodi market has been growing exponentially, we need the government to come to our aid immediately
-                            As the Election Moves forward, the unrest in oshodi market has been growing exponentially, we need the government to come to our aid immediately
-                            As the Election Moves forward, the unrest in oshodi market has been growing exponentially, we need the government to come to our aid immediately
+                           {singleReportFetched.reportContent.body}
                         </Text>
                     </View>
                 </View>

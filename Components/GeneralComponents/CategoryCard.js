@@ -2,16 +2,16 @@ import { ImageBackground, View, Text, Image, StyleSheet } from "react-native";
 
 import { spaceConstants } from '../../Constants/StyleConstants'
 
-function CategoryCard({ CategoryText, categoryImage }) {
+function CategoryCard({ category }) {
 
     return (
         <View style={styles.CategoryBox}>
             <Image
                 style={styles.ImageStyle}
-                source={require('../../assets/pexels-beth-easton-2433985.jpg')}
+                source={{ uri : category.categoryBigImage}}
             />
             <View style={styles.categoryInnerContainer}>
-                <Text style={styles.categoryText}>{CategoryText}</Text>
+                <Text style={styles.categoryText}>{category.categoryName}</Text>
             </View>
         </View>
     )
@@ -33,6 +33,10 @@ const styles = StyleSheet.create({
         zIndex : -300
     },
     categoryText: {
+        fontSize : 20,
+        fontWeight : '400',
+        padding : 2,
+        borderRadius : 7,
         position : 'relative',
         top : 100,
         left : 20,
