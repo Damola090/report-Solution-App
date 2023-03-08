@@ -4,11 +4,11 @@
     "slug": "report",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/figmaDesign.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "image": "./assets/figmaDesign.png",
+      "resizeMode" : "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [

@@ -16,6 +16,7 @@ import ScrollContainer from '../../Containers/ScrollContainer';
 import UserInput from '../UserInput';
 import UserButton from '../UserButton';
 import CategoryDropdown from './CategoryDropdown';
+import LoadingOverlay from '../LoadingOverlay';
 
 
 function CreatePost() {
@@ -26,6 +27,7 @@ function CreatePost() {
     const [description, setDescription] = useState()
     const [category, setCategory] = useState()
     const [newReport, setNewReport] = useState()
+    const [loading, setLoading] = useState(false)
 
     const categoryDropDown = [
         'Fighting',
@@ -93,13 +95,17 @@ function CreatePost() {
     useEffect(() => {
 
         if (picture !== undefined) {
+            setLoading(true)
             UploadToCloudinary(picture)
                 .then((res) => {
                     setCloudinaryData(res.cloudinaryObj)
+                    setLoading(false)
+                    Alert.alert("Image Uploaded Successfully")
                 })
                 .catch((err) => {
                     setCloudinaryData(null)
-                    // console.log(err)
+                    setLoading(false)
+                    Alert.alert("Failed To Upload Image")
                 })
         }
 
@@ -146,55 +152,51 @@ function CreatePost() {
 
     return (
         <View style={styles.createPostBox}>
-            <ScrollContainer
-                config={{
-                    contentContainerStyle: styles.scrollContainerStyle
-                }}
-            >
-                <Pressable onPress={LaunchImageLibrary} style={styles.AddPhotoBox}>
-                    {picture !== undefined ? <Image style={{ width: '100%', height: '100%' }} source={{ uri: picture }} /> : (
-                        <>
-                            <Ionicons name='md-camera' size={48} color='black' />
-                            <Text style={styles.AddPhotoText}>Add Photo</Text>
-                        </>
-                    )}
-                </Pressable>
-                <View style={styles.inputContainer}>
-                    <UserInput
-                        label="Add Topic"
-                        textInputConfig={{
-                            onChangeText: (titleParams) => {
-                                setTopic(titleParams)
-                            },
-                            value: topic
+            {loading === true
+                ? <LoadingOverlay />
+                : (
+                    <ScrollContainer
+                        config={{
+                            contentContainerStyle: styles.scrollContainerStyle
                         }}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <UserInput
-                        label="Add Description"
-                        textInputConfig={{
-                            multiline: true,
-                            onChangeText: (DescriptionParams) => {
-                                setDescription(DescriptionParams)
-                            },
-                            value: description
-                        }}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <CategoryDropdown categoryList={categoryDropDown} setCategory={setCategory} />
-                    {/* <UserInput
-                        label="Add Category"
-                        textInputConfig={{
-                            onChangeText: (categoryParams) => {
-                                setCategory(categoryParams)
-                            },
-                            value: category
-                        }}
-                    /> */}
-                </View>
-            </ScrollContainer>
+                    >
+                        <Pressable onPress={LaunchImageLibrary} style={styles.AddPhotoBox}>
+                            {picture !== undefined ? <Image style={{ width: '100%', height: '100%' }} source={{ uri: picture }} /> : (
+                                <>
+                                    <Ionicons name='md-camera' size={48} color='black' />
+                                    <Text style={styles.AddPhotoText}>Add Photo</Text>
+                                </>
+                            )}
+                        </Pressable>
+                        <View style={styles.inputContainer}>
+                            <UserInput
+                                label="Add Topic"
+                                textInputConfig={{
+                                    onChangeText: (titleParams) => {
+                                        setTopic(titleParams)
+                                    },
+                                    value: topic
+                                }}
+                            />
+                        </View>
+                        <View style={styles.inputContainer}>
+                            <UserInput
+                                label="Add Description"
+                                textInputConfig={{
+                                    multiline: true,
+                                    onChangeText: (DescriptionParams) => {
+                                        setDescription(DescriptionParams)
+                                    },
+                                    value: description
+                                }}
+                            />
+                        </View>
+                        <View style={styles.inputContainer}>
+                            <CategoryDropdown categoryList={categoryDropDown} setCategory={setCategory} />
+                        </View>
+                    </ScrollContainer>
+
+                )}
             <View style={styles.ButtonContainer}>
                 <UserButton onPress={SubmitHandler}>Create Post</UserButton>
             </View>
@@ -207,12 +209,12 @@ export default CreatePost;
 const styles = StyleSheet.create({
     createPostBox: {
         flex: 1,
-        padding : 10
+        padding: 10
     },
     AddPhotoBox: {
         height: 250,
         marginBottom: 20,
-        borderRadius : 6,
+        borderRadius: 6,
         flexDirection: 'column',
         backgroundColor: colorConstants.background,
         justifyContent: 'center',
@@ -222,8 +224,8 @@ const styles = StyleSheet.create({
         fontSize: fontConstants.sizeTextMedium,
         fontWeight: fontConstants.weightBold
     },
-    inputContainer : {
-        marginBottom : 10
+    inputContainer: {
+        marginBottom: 10
     },
     scrollContainerStyle: {
         // flex : 0.5

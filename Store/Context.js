@@ -61,7 +61,7 @@ function AuthContextProvider ({children}){
                 }
             }
         
-            const response = await axios.post('http://192.168.8.127:3000/api/v1/login-user', { email, password }, config)
+            const response = await axios.post('https://careful-leather-jacket-yak.cyclic.app/api/v1/login-user', { email, password }, config)
         
             if (response.status === 200) {
                 token = response.data.data.toString();
@@ -116,7 +116,7 @@ function AuthContextProvider ({children}){
                 }
             }
 
-            const response = await axios.post('http://192.168.8.127:3000/api/v1/register-user', userDetails, config)
+            const response = await axios.post('https://careful-leather-jacket-yak.cyclic.app/api/v1/register-user', userDetails, config)
             
             if (response.status === 201) {
                 token = response.data.data.toString();

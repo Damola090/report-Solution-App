@@ -56,7 +56,7 @@ function HomeScreen() {
                     console.log("home screen is out of focus")
                 }
 
-            }, [fetchRecords]
+            }, []
         )
     )
 

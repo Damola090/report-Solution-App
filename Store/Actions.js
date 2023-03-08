@@ -1,34 +1,5 @@
-import jwt_decode from 'jwt-decode';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 
-var localAddress = '192.168.8.127';
-
-export const AsyncOperation = async (email, password) => {
-
-    config = {
-        Headers: {
-            'Content-Type': 'application/json',
-        }
-    }
-
-    const response = await axios.post('http://192.168.8.127:3000/api/v1/login-user', { email, password }, config)
-
-    if (response.status === 200) {
-        token = response.data.token.toString();
-        await AsyncStorage.setItem("jwt", token)
-
-
-        const decoded = jwt_decode(token)
-        console.log('Async Storage', decoded)
-
-        return response;
-
-    } else {
-
-        return;
-    }
-}
 
 
 //Get ALl Reports 
@@ -46,7 +17,7 @@ export const GetAllCategory = async () => {
 
     try {
 
-        const response = await fetch('http://192.168.8.127:3000/api/v1/get-all-category', {
+        const response = await fetch('https://careful-leather-jacket-yak.cyclic.app/api/v1/get-all-category', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,7 +53,7 @@ export const GetFilteredReports = async (id) => {
 
     try {
 
-        const response = await fetch(`http://192.168.8.127:3000/api/v1/get-Reports-For-Category/${id}`, {
+        const response = await fetch(`https://careful-leather-jacket-yak.cyclic.app/api/v1/get-Reports-For-Category/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,11 +87,9 @@ export const GetAllReports = async () => {
 
     token = extract
 
-    console.log(token)
-
     try {
 
-        const response = await fetch('http://192.168.8.127:3000/api/v1/fetch-all-reports', {
+        const response = await fetch('https://careful-leather-jacket-yak.cyclic.app/api/v1/fetch-all-reports', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -129,8 +98,6 @@ export const GetAllReports = async () => {
         })
 
         const data = await response.json()
-
-        console.log(data)
 
         return data
 
@@ -156,9 +123,9 @@ export const GetSingleReport = async (id) => {
 
     token = extract
 
-    console.log(token)
+    // console.log(token)
 
-    const response = await fetch(`http://192.168.8.127:3000/api/v1/fetch-single-report/${id}`, {
+    const response = await fetch(`https://careful-leather-jacket-yak.cyclic.app/api/v1/fetch-single-report/${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -170,6 +137,7 @@ export const GetSingleReport = async (id) => {
 
     if (data) {
         return data
+
     } else {
         return;
     }
@@ -198,9 +166,9 @@ export const UploadToCloudinary = async ( ImageObj ) => {
         type: 'image/jpg',
     })
 
-    console.log(formData)
+    // console.log(formData)
 
-    const response = await fetch(`http://192.168.8.127:3000/api/v1/upload-to-cloudinary`, {
+    const response = await fetch(`https://careful-leather-jacket-yak.cyclic.app/api/v1/upload-to-cloudinary`, {
         method: 'POST',
         headers: {
             Accept: 'Application/json',
@@ -213,7 +181,7 @@ export const UploadToCloudinary = async ( ImageObj ) => {
 
     const data = await response.json()
 
-    console.log(data)
+    // console.log(data)
 
     if (data) {
         return data
@@ -243,7 +211,7 @@ export const CreateNewReport = async (reportObj) => {
 
     try {
 
-        const response = await fetch('http://192.168.8.127:3000/api/v1/create-report', {
+        const response = await fetch('https://careful-leather-jacket-yak.cyclic.app/api/v1/create-report', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -284,7 +252,7 @@ export const GetMyReports = async () => {
 
     try {
 
-        const response = await fetch('http://192.168.8.127:3000/api/v1/fetch-my-report', {
+        const response = await fetch('https://careful-leather-jacket-yak.cyclic.app/api/v1/fetch-my-report', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
